@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="module-title">Пути</h1>
+
+<form class="add-form" method="POST" action="{{ url_for('path_manager') }}">
+    <div class="form-group">
+        <label>Путь:</label>
+        <input type="text" name="path" placeholder="C:\Users\Name\Folder" required>
+    </div>
+
+    <div class="form-group">
+        <label>Описание:</label>
+        <textarea name="description" placeholder="Описание..." rows="2"></textarea>
+    </div>
+
+    <button type="submit">Добавить</button>
+</form>
+
+<div class="paths-list">
+    {% if paths %}
+        {% for path in paths %}
+            <div class="path-item">
+                <div class="path-info">
+                    <div class="path-name">{{ path.path }}</div>
+                    {% if path.description %}
+                        <div class="path-desc">{{ path.description }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="path-actions">
+                    <a href="{{ url_for('start_path', file_path=path.path) }}">
+                        <button class="btn-open">Открыть</button>
+                    </a>
+                    <a href="{{ url_for('delete_path', path_id=path.id) }}">
+                        <button class="btn-delete">Удалить</button>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">Нет добавленных путей</div>
+    {% endif %}
+</div>
+{% endblock %}

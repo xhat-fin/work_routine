@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="module-title">Редактировать задачу</h1>
+
+<form class="add-form" method="POST" action="{{ url_for('edit_task', task_id=task.id) }}">
+    <div class="form-group">
+        <label>Задача:</label>
+        <input type="text" name="task" value="{{ task.task }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label>Описание:</label>
+        <textarea name="description" rows="3">{{ task.description }}</textarea>
+    </div>
+    
+    <div class="form-group">
+        <label>Тип:</label>
+        <select name="type">
+            {% for type in list_type_task %}
+                <option value="{{ type }}" {% if type == task.type %}selected{% endif %}>
+                    {{ type }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>Статус:</label>
+        <select name="status">
+            {% for status in status_list %}
+                <option value="{{ status }}" {% if status == task.status %}selected{% endif %}>
+                    {{ status }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div class="form-actions">
+        <button type="submit">Сохранить</button>
+        <a href="{{ url_for('task_manager') }}">
+            <button type="button" style="background: #999;">Отмена</button>
+        </a>
+    </div>
+</form>
+
+<style>
+.form-actions {
+    display: flex;
+    gap: 10px;
+}
+</style>
+{% endblock %}

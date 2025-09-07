@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fff;
+            color: #333;
+            line-height: 1.5;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Боковое меню */
+        .sidebar {
+            width: 200px;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+            padding: 20px 0;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 2px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 20px;
+            color: #495057;
+            text-decoration: none;
+            font-size: 14px;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background: #e9ecef;
+        }
+
+        .nav-link.active {
+            background: #e9ecef;
+            border-left-color: #000;
+            font-weight: 500;
+        }
+
+        /* Основной контент */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .module-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        /* Формы */
+        .add-form {
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #999;
+        }
+
+        button {
+            background: #000;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #333;
+        }
+
+        /* Списки */
+        .paths-list {
+            max-width: 800px;
+        }
+
+        .path-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .path-item:last-child {
+            border-bottom: none;
+        }
+
+        .path-info {
+            flex: 1;
+        }
+
+        .path-name {
+            font-size: 15px;
+            margin-bottom: 3px;
+            word-break: break-all;
+        }
+
+        .path-desc {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .path-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-open {
+            background: #000;
+            font-size: 13px;
+            padding: 6px 12px;
+        }
+
+        .btn-delete {
+            background: #999;
+            font-size: 13px;
+            padding: 6px 12px;
+        }
+
+        .empty-state {
+            color: #999;
+            font-style: italic;
+            padding: 20px 0;
+        }
+
+        /* Заглушки модулей */
+        .module-placeholder {
+            color: #999;
+            padding: 40px 0;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+                padding: 10px 0;
+            }
+
+            .nav-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+
+            .nav-item {
+                margin-bottom: 0;
+                margin-right: 5px;
+            }
+
+            .nav-link {
+                padding: 10px 15px;
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 2px solid transparent;
+            }
+
+            .nav-link.active {
+                border-left-color: transparent;
+                border-bottom-color: #000;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Боковое меню -->
+    <aside class="sidebar">
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="{{ url_for('path_manager') }}" class="nav-link {% if active_module == 'paths' %}active{% endif %}">
+                        Пути
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('task_manager') }}" class="nav-link {% if active_module == 'tasks' %}active{% endif %}">
+                        Задачи
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
